@@ -1,22 +1,26 @@
 <template>
-  <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-950 select-none">
-    <!-- 呼吸圆 -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-      <div class="animate-breathe w-64 h-64 md:w-96 md:h-96 rounded-full bg-red-600/10"></div>
-    </div>
-
-    <!-- 倒计时 -->
-    <div class="relative z-10 text-center">
-      <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums mb-4">
+  <div class="fixed inset-0 z-50 flex flex-col items-center bg-gray-950 select-none overflow-hidden">
+    <!-- 顶部：倒计时 -->
+    <div class="pt-16 md:pt-20 text-center">
+      <div class="text-7xl md:text-8xl font-bold text-red-500 tabular-nums leading-none mb-2">
         {{ seconds }}
       </div>
-      <p class="text-gray-500 text-sm">深呼吸，跟着圆圈节奏</p>
+      <p class="text-gray-600 text-xs tracking-widest">SECONDS</p>
     </div>
 
-    <!-- 毒鸡汤区 -->
-    <div class="absolute bottom-20 left-4 right-4 md:left-auto md:right-auto md:max-w-lg mx-auto text-center">
+    <!-- 中部：呼吸圆 -->
+    <div class="flex-1 flex items-center justify-center -mt-8">
+      <div class="animate-breathe w-48 h-48 md:w-64 md:h-64 rounded-full bg-red-600/10"></div>
+    </div>
+
+    <!-- 下部：毒鸡汤 -->
+    <div class="pb-20 md:pb-28 px-6 max-w-lg mx-auto text-center">
+      <p class="text-gray-400 text-xs tracking-widest mb-4">— 冷静想想 —</p>
       <transition name="fade" mode="out-in">
-        <p :key="currentQuote.text" class="text-gray-400 text-sm md:text-base leading-relaxed animate-fade-in">
+        <p
+          :key="currentQuote.text"
+          class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
+        >
           {{ currentQuote.text }}
         </p>
       </transition>
@@ -25,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { getRandomQuote } from '../data/quotes.js'
 
 const emit = defineEmits(['done'])
