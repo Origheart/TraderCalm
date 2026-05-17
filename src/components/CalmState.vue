@@ -70,7 +70,7 @@ function copyQuote() {
   })
 }
 
-function formatText(ctx, text, x, y, maxWidth, lineHeight) {
+function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
   const chars = text.split('')
   let line = ''
   let ly = y
@@ -99,49 +99,71 @@ async function copyImage() {
   const H = 500
   canvas.width = W
   canvas.height = H
-
   const ctx = canvas.getContext('2d')
 
-  // 背景
-  ctx.fillStyle = '#0a0a0a'
+  // ── 背景 ──
+  ctx.fillStyle = '#050505'
   ctx.fillRect(0, 0, W, H)
 
-  // 左侧红色装饰线
-  ctx.fillStyle = '#dc2626'
-  ctx.fillRect(40, 60, 4, H - 120)
+  // 顶部/底部细微渐变线
+  const grad = ctx.createLinearGradient(0, 0, W, 0)
+  grad.addColorStop(0, 'rgba(220,38,38,0)')
+  grad.addColorStop(0.3, 'rgba(220,38,38,0.15)')
+  grad.addColorStop(0.7, 'rgba(220,38,38,0.15)')
+  grad.addColorStop(1, 'rgba(220,38,38,0)')
+  ctx.fillStyle = grad
+  ctx.fillRect(0, 0, W, 1)
+  ctx.fillRect(0, H - 1, W, 1)
 
-  // 品牌
-  ctx.fillStyle = '#525252'
-  ctx.font = '600 14px -apple-system, "PingFang SC", "Noto Sans SC", sans-serif'
-  ctx.fillText('TRADERCALM', 64, 90)
+  // ── 品牌 ──
+  ctx.fillStyle = '#404040'
+  ctx.font = '500 12px -apple-system, "PingFang SC", sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('T R A D E R C A L M', W / 2, 52)
 
-  // 引号装饰
-  ctx.fillStyle = '#dc2626'
-  ctx.font = 'bold 48px serif'
-  ctx.fillText('"', 64, 170)
+  // ── 上引号 ──
+  ctx.fillStyle = 'rgba(220,38,38,0.25)'
+  ctx.font = '72px Georgia, serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('"', W / 2, 120)
 
-  // 正文（自动换行）
-  ctx.fillStyle = '#f0f0f0'
-  ctx.font = '24px -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif'
-  const lineHeight = 40
-  const maxWidth = W - 128
-  formatText(ctx, quote.value.text, 64, 205, maxWidth, lineHeight)
+  // ── 正文 ──
+  ctx.fillStyle = '#e5e5e5'
+  ctx.font = '24px -apple-system, "PingFang SC", "Noto Sans SC", sans-serif'
+  ctx.textAlign = 'center'
+  const textX = W / 2
+  const maxWidth = W - 160
+  const lineH = 42
+  const textEnd = wrapText(ctx, quote.value.text, textX, 168, maxWidth, lineH)
 
-  // 分隔线
-  const y = 380
-  ctx.strokeStyle = '#262626'
+  // ── 下引号 ──
+  const afterTextY = textEnd + 8
+  ctx.fillStyle = 'rgba(220,38,38,0.25)'
+  ctx.font = '72px Georgia, serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('"', W / 2, afterTextY + 20)
+
+  // ── 分隔线 ──
+  const lineY = Math.max(afterTextY + 64, 370)
+  ctx.strokeStyle = '#1f1f1f'
   ctx.lineWidth = 1
   ctx.beginPath()
-  ctx.moveTo(64, y)
-  ctx.lineTo(W - 64, y)
+  ctx.moveTo(W / 2 - 120, lineY)
+  ctx.lineTo(W / 2 + 120, lineY)
   ctx.stroke()
 
-  // 链接
+  // ── 链接 ──
   ctx.fillStyle = '#525252'
-  ctx.font = '400 14px -apple-system, "PingFang SC", sans-serif'
-  ctx.fillText('交易员情绪急救包 · https://tradercalm.vercel.app/', 64, y + 30)
+  ctx.font = '400 13px -apple-system, "PingFang SC", sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('交易员情绪急救包 · tradercalm.vercel.app', W / 2, lineY + 28)
 
-  // 转 blob → clipboard
+  // ── 底部 TraderCalm 水印 ──
+  ctx.fillStyle = '#1a1a1a'
+  ctx.font = '600 11px -apple-system, sans-serif'
+  ctx.fillText('TraderCalm', W / 2, H - 24)
+
+  // ── 转 blob → clipboard ──
   const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
   if (!blob) { imageLoading.value = false; return }
 
@@ -152,7 +174,6 @@ async function copyImage() {
     imageCopied.value = true
     setTimeout(() => { imageCopied.value = false }, 2000)
   } catch {
-    // fallback: 下载图片
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
