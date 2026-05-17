@@ -1,8 +1,8 @@
 <template>
   <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black select-none overflow-hidden">
     <!-- 呼吸圆 + 倒计时（居中） -->
-    <div class="relative flex items-center justify-center mb-8 md:mb-12">
-      <div class="animate-breathe w-64 h-64 md:w-80 md:h-80 rounded-full bg-red-600/20"></div>
+    <div class="relative flex items-center justify-center mb-16 md:mb-20">
+      <div class="animate-breathe w-48 h-48 md:w-64 md:h-64 rounded-full bg-red-600/20"></div>
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
           {{ seconds }}
