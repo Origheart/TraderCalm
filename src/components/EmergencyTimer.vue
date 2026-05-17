@@ -3,7 +3,7 @@
     <!-- 呼吸圆 + 倒计时：绝对定位在屏幕正中央，永不移动 -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
       <div class="relative flex items-center justify-center">
-        <div class="animate-breathe w-64 h-64 md:w-80 md:h-80 rounded-full bg-red-600/20"></div>
+        <div class="animate-breathe w-64 h-64 md:w-80 md:h-80 rounded-full bg-red-600/30"></div>
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
             {{ seconds }}
