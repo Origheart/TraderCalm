@@ -13,8 +13,8 @@
     </div>
 
     <!-- 毒鸡汤：固定在圆下方 -->
-    <div class="absolute left-1/2 -translate-x-1/2 px-6 text-center quote-pos">
-      <div class="max-w-lg">
+    <div class="absolute left-1/2 -translate-x-1/2 px-4 md:px-6 text-center quote-pos">
+      <div class="w-full max-w-md md:max-w-lg">
         <p class="text-gray-500 text-xs tracking-widest mb-4 font-sans">{{ msg.thinkLabel }}</p>
         <transition name="fade" mode="out-in">
           <p
