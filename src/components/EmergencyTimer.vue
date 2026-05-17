@@ -1,29 +1,28 @@
 <template>
-  <div class="fixed inset-0 z-50 bg-black select-none overflow-hidden">
-    <!-- 呼吸圆背景（绝对定位，缩放不影响布局） -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-      <div class="animate-breathe w-72 h-72 md:w-96 md:h-96 rounded-full bg-red-600/20"></div>
-    </div>
-
-    <!-- 倒计时（绝对定位于屏幕上部，永不移动） -->
-    <div class="absolute inset-x-0 text-center" style="top: 30%">
-      <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
-        {{ seconds }}
+  <div class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center overflow-hidden px-6">
+    <!-- 呼吸圆 + 倒计时：共用同一中心 -->
+    <div class="relative flex items-center justify-center">
+      <div class="animate-breathe w-64 h-64 md:w-80 md:h-80 rounded-full bg-red-600/20"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
+          {{ seconds }}
+        </div>
       </div>
     </div>
 
-    <!-- 毒鸡汤（绝对定位于倒计时下方，永不移动） -->
-    <div class="absolute inset-x-0 px-6 text-center" style="top: 52%">
-      <div class="max-w-lg mx-auto">
-        <transition name="fade" mode="out-in">
-          <p
-            :key="currentQuote.text"
-            class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
-          >
-            {{ currentQuote.text }}
-          </p>
-        </transition>
-      </div>
+    <!-- 固定间距：确保呼吸圆 1.5x 放大到底也不会碰到文案 -->
+    <div class="h-16 md:h-20"></div>
+
+    <!-- 毒鸡汤：完全独立，在圆下方 -->
+    <div class="max-w-lg text-center">
+      <transition name="fade" mode="out-in">
+        <p
+          :key="currentQuote.text"
+          class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
+        >
+          {{ currentQuote.text }}
+        </p>
+      </transition>
     </div>
   </div>
 </template>
