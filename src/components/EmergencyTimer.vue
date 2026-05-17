@@ -1,17 +1,19 @@
 <template>
-  <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black select-none overflow-hidden">
-    <!-- 呼吸圆 + 倒计时（居中） -->
-    <div class="relative flex items-center justify-center mb-16 md:mb-20">
-      <div class="animate-breathe w-48 h-48 md:w-64 md:h-64 rounded-full bg-red-600/20"></div>
-      <div class="absolute inset-0 flex items-center justify-center">
-        <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
-          {{ seconds }}
+  <div class="fixed inset-0 z-50 flex flex-col bg-black select-none overflow-hidden">
+    <!-- 上部分：倒计时 + 呼吸圆（flex-1 固定位置，不受文案影响） -->
+    <div class="flex-1 flex flex-col items-center justify-center">
+      <div class="relative flex items-center justify-center">
+        <div class="animate-breathe w-36 h-36 md:w-48 md:h-48 rounded-full bg-red-600/20"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="text-7xl md:text-8xl font-bold text-red-500 tabular-nums leading-none">
+            {{ seconds }}
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 毒鸡汤（呼吸圆下方） -->
-    <div class="px-6 max-w-md text-center">
+    <!-- 下部分：毒鸡汤（自然高度，不影响上面布局） -->
+    <div class="pb-12 md:pb-16 px-6 max-w-md mx-auto text-center">
       <transition name="fade" mode="out-in">
         <p
           :key="currentQuote.text"
