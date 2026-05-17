@@ -1,29 +1,25 @@
 <template>
-  <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-950 select-none overflow-hidden">
-    <!-- 呼吸圆背景 -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-      <div class="animate-breathe w-64 h-64 md:w-96 md:h-96 rounded-full bg-red-600/10"></div>
-    </div>
-
-    <!-- 内容区：倒计时 + 毒鸡汤 -->
-    <div class="relative z-10 flex flex-col items-center gap-6 md:gap-8 px-6">
-      <div class="text-center">
+  <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black select-none overflow-hidden">
+    <!-- 呼吸圆 + 倒计时（居中） -->
+    <div class="relative flex items-center justify-center mb-8 md:mb-12">
+      <div class="animate-breathe w-64 h-64 md:w-80 md:h-80 rounded-full bg-red-600/20"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
         <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
           {{ seconds }}
         </div>
       </div>
+    </div>
 
-      <div class="max-w-md text-center">
-        <p class="text-gray-500 text-xs tracking-widest mb-3">— 冷静想想 —</p>
-        <transition name="fade" mode="out-in">
-          <p
-            :key="currentQuote.text"
-            class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
-          >
-            {{ currentQuote.text }}
-          </p>
-        </transition>
-      </div>
+    <!-- 毒鸡汤（呼吸圆下方） -->
+    <div class="px-6 max-w-md text-center">
+      <transition name="fade" mode="out-in">
+        <p
+          :key="currentQuote.text"
+          class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
+        >
+          {{ currentQuote.text }}
+        </p>
+      </transition>
     </div>
   </div>
 </template>
