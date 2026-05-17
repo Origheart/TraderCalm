@@ -1,24 +1,25 @@
 <template>
   <div class="fixed inset-0 z-50 bg-black overflow-hidden">
-    <!-- 呼吸圆 + 倒计时：绝对定位在屏幕正中央，永不移动 -->
+    <!-- 呼吸圆 + 倒计时：屏幕正中央 -->
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-      <div class="relative flex items-center justify-center">
+      <div class="relative flex items-center justify-center font-sans">
         <div class="animate-breathe w-64 h-64 md:w-80 md:h-80 rounded-full bg-red-600/30"></div>
         <div class="absolute inset-0 flex items-center justify-center">
-          <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
+          <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none font-sans">
             {{ seconds }}
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 毒鸡汤：固定在圆下方，文案长短不影响圆 -->
+    <!-- 毒鸡汤：固定在圆下方 -->
     <div class="absolute left-1/2 -translate-x-1/2 px-6 text-center" style="top: calc(50% + 260px)">
       <div class="max-w-lg">
+        <p class="text-gray-500 text-xs tracking-widest mb-4 font-sans">{{ msg.thinkLabel }}</p>
         <transition name="fade" mode="out-in">
           <p
             :key="currentQuote.text"
-            class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
+            class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in font-sans"
           >
             {{ currentQuote.text }}
           </p>
@@ -29,19 +30,23 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { messages } from '../i18n.js'
 import { getRandomQuote } from '../data/quotes.js'
 
+const props = defineProps(['locale'])
 const emit = defineEmits(['done'])
 
+const msg = computed(() => messages[props.locale])
+
 const seconds = ref(60)
-const currentQuote = ref(getRandomQuote('toxic'))
+const currentQuote = ref(getRandomQuote(props.locale, 'toxic'))
 
 let timer = null
 let quoteTimer = null
 
 function cycleQuote() {
-  currentQuote.value = getRandomQuote('toxic')
+  currentQuote.value = getRandomQuote(props.locale, 'toxic')
 }
 
 onMounted(() => {
