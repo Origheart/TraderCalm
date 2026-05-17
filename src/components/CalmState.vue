@@ -13,28 +13,34 @@
       </p>
     </div>
 
-    <div class="flex flex-col gap-3">
-      <div class="flex flex-col sm:flex-row gap-3">
+    <!-- 分享区 -->
+    <div class="w-full max-w-sm">
+      <p class="text-gray-600 text-xs mb-3 font-sans">{{ msg.shareLabel }}</p>
+      <div class="flex flex-col gap-2.5">
         <button
           @click="copyQuote"
-          class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-xl font-medium transition-all duration-200 focus:outline-none font-sans"
+          class="w-full flex items-center justify-center gap-3 px-5 py-3.5 bg-gray-800 hover:bg-gray-700 border border-gray-700/50 hover:border-gray-600 text-gray-200 rounded-xl font-medium transition-all duration-200 focus:outline-none group font-sans"
         >
-          {{ textCopied ? msg.copiedText : msg.copyText }}
+          <span class="text-lg">{{ textCopied ? '✅' : '📋' }}</span>
+          <span>{{ textCopied ? msg.copiedText : msg.copyText }}</span>
+          <span class="text-gray-600 text-xs ml-auto opacity-0 group-hover:opacity-100 transition-opacity">→</span>
         </button>
         <button
           @click="copyImage"
           :disabled="imageLoading"
-          class="px-6 py-3 bg-gray-800 hover:bg-gray-700 text-gray-200 rounded-xl font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 font-sans"
+          class="w-full flex items-center justify-center gap-3 px-5 py-3.5 bg-gray-800 hover:bg-gray-700 border border-gray-700/50 hover:border-gray-600 text-gray-200 rounded-xl font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 group font-sans"
         >
-          {{ imageCopied ? msg.copiedImage : imageLoading ? msg.generating : msg.copyImage }}
-        </button>
-        <button
-          @click="$emit('reset')"
-          class="px-6 py-3 bg-red-900 hover:bg-red-800 text-red-300 rounded-xl font-medium transition-all duration-200 focus:outline-none font-sans"
-        >
-          {{ msg.resetButton }}
+          <span class="text-lg">{{ imageCopied ? '✅' : imageLoading ? '⏳' : '🖼️' }}</span>
+          <span>{{ imageCopied ? msg.copiedImage : imageLoading ? msg.generating : msg.copyImage }}</span>
+          <span class="text-gray-600 text-xs ml-auto opacity-0 group-hover:opacity-100 transition-opacity">→</span>
         </button>
       </div>
+      <button
+        @click="$emit('reset')"
+        class="mt-5 text-sm text-gray-600 hover:text-gray-400 transition-colors font-sans"
+      >
+        {{ msg.resetButton }}
+      </button>
     </div>
 
     <textarea ref="copyTextarea" class="absolute opacity-0 pointer-events-none" readonly></textarea>

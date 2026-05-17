@@ -1,7 +1,7 @@
 <template>
   <div class="fixed inset-0 z-50 bg-black overflow-hidden">
-    <!-- 呼吸圆 + 倒计时：屏幕正中央 -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+    <!-- 呼吸圆 + 倒计时 -->
+    <div class="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 circle-center">
       <div class="relative flex items-center justify-center font-sans">
         <div class="animate-breathe w-64 h-64 md:w-80 md:h-80 rounded-full bg-red-600/30"></div>
         <div class="absolute inset-0 flex items-center justify-center">
@@ -13,7 +13,7 @@
     </div>
 
     <!-- 毒鸡汤：固定在圆下方 -->
-    <div class="absolute left-1/2 -translate-x-1/2 px-6 text-center" style="top: calc(50% + 260px)">
+    <div class="absolute left-1/2 -translate-x-1/2 px-6 text-center quote-pos">
       <div class="max-w-lg">
         <p class="text-gray-500 text-xs tracking-widest mb-4 font-sans">{{ msg.thinkLabel }}</p>
         <transition name="fade" mode="out-in">
@@ -80,5 +80,21 @@ onUnmounted(() => {
 .fade-leave-to {
   opacity: 0;
   transform: translateY(-8px);
+}
+
+/* 移动端上移，桌面端居中 */
+.circle-center {
+  top: 44%;
+}
+.quote-pos {
+  top: calc(44% + 230px);
+}
+@media (min-width: 768px) {
+  .circle-center {
+    top: 50%;
+  }
+  .quote-pos {
+    top: calc(50% + 260px);
+  }
 }
 </style>
