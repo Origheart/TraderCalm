@@ -1,47 +1,47 @@
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen px-4 text-center bg-black">
-    <div class="mb-8 w-16 h-16 rounded-full bg-emerald-900 flex items-center justify-center">
-      <span class="text-3xl font-sans">🧘</span>
+  <div class="flex flex-col items-center justify-center min-h-screen px-6 text-center bg-black">
+    <!-- 状态指示 -->
+    <div class="flex items-center gap-2 text-gray-500 text-xs mb-10 md:mb-12 font-sans tracking-widest">
+      <span>🧘</span>
+      <span>{{ msg.calmEnd }}</span>
     </div>
 
-    <p class="text-gray-500 text-sm mb-2 font-sans">{{ msg.calmEnd }}</p>
-    <h1 class="text-2xl md:text-3xl font-light text-gray-200 mb-8 font-serif">{{ msg.calmQuestion }}</h1>
-
-    <div class="max-w-lg bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 mb-8 animate-fade-in">
-      <p class="text-gray-300 text-lg md:text-xl leading-relaxed font-sans">
+    <!-- 引文 — 主打质感，无卡片 -->
+    <div class="max-w-lg animate-fade-in">
+      <p class="text-2xl md:text-3xl font-serif text-gray-100 leading-relaxed">
         {{ quote.text }}
       </p>
     </div>
 
-    <!-- 分享区 -->
-    <div class="w-full max-w-sm">
-      <p class="text-gray-600 text-xs mb-3 font-sans">{{ msg.shareLabel }}</p>
-      <div class="flex flex-col gap-2.5">
-        <button
-          @click="copyQuote"
-          class="w-full flex items-center justify-center gap-3 px-5 py-3.5 bg-gray-800 hover:bg-gray-700 border border-gray-700/50 hover:border-gray-600 text-gray-200 rounded-xl font-medium transition-all duration-200 focus:outline-none group font-sans"
-        >
-          <span class="text-lg">{{ textCopied ? '✅' : '📋' }}</span>
-          <span>{{ textCopied ? msg.copiedText : msg.copyText }}</span>
-          <span class="text-gray-600 text-xs ml-auto opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-        </button>
-        <button
-          @click="copyImage"
-          :disabled="imageLoading"
-          class="w-full flex items-center justify-center gap-3 px-5 py-3.5 bg-gray-800 hover:bg-gray-700 border border-gray-700/50 hover:border-gray-600 text-gray-200 rounded-xl font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 group font-sans"
-        >
-          <span class="text-lg">{{ imageCopied ? '✅' : imageLoading ? '⏳' : '🖼️' }}</span>
-          <span>{{ imageCopied ? msg.copiedImage : imageLoading ? msg.generating : msg.copyImage }}</span>
-          <span class="text-gray-600 text-xs ml-auto opacity-0 group-hover:opacity-100 transition-opacity">→</span>
-        </button>
-      </div>
+    <!-- 分隔 -->
+    <div class="w-16 h-px bg-gray-800 my-10 md:my-12"></div>
+
+    <!-- 分享按钮行 -->
+    <div class="flex items-center gap-3">
       <button
-        @click="$emit('reset')"
-        class="mt-5 text-sm text-gray-600 hover:text-gray-400 transition-colors font-sans"
+        @click="copyQuote"
+        class="flex items-center gap-2 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-gray-700 text-gray-300 hover:text-gray-100 rounded-xl text-sm font-medium transition-all duration-200 focus:outline-none font-sans"
       >
-        {{ msg.resetButton }}
+        <span>{{ textCopied ? '✅' : '📋' }}</span>
+        <span>{{ textCopied ? msg.copiedText : msg.copyText }}</span>
+      </button>
+      <button
+        @click="copyImage"
+        :disabled="imageLoading"
+        class="flex items-center gap-2 px-4 py-2.5 bg-gray-900 hover:bg-gray-800 border border-gray-800 hover:border-gray-700 text-gray-300 hover:text-gray-100 rounded-xl text-sm font-medium transition-all duration-200 focus:outline-none disabled:opacity-50 font-sans"
+      >
+        <span>{{ imageCopied ? '✅' : imageLoading ? '⏳' : '🖼️' }}</span>
+        <span>{{ imageCopied ? msg.copiedImage : imageLoading ? msg.generating : msg.copyImage }}</span>
       </button>
     </div>
+
+    <!-- 再来一次 -->
+    <button
+      @click="$emit('reset')"
+      class="mt-8 text-xs text-gray-600 hover:text-gray-400 transition-colors font-sans tracking-wider"
+    >
+      {{ msg.resetButton }}
+    </button>
 
     <textarea ref="copyTextarea" class="absolute opacity-0 pointer-events-none" readonly></textarea>
     <canvas ref="canvasEl" class="hidden"></canvas>
