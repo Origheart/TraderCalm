@@ -13,7 +13,7 @@
     </div>
 
     <!-- 毒鸡汤：固定在圆下方 -->
-    <div class="absolute left-1/2 -translate-x-1/2 px-4 md:px-6 text-center quote-pos">
+    <div class="absolute left-1/2 -translate-x-1/2 px-2 md:px-6 text-center quote-pos">
       <div class="w-full max-w-md md:max-w-lg">
         <p class="text-gray-500 text-xs tracking-widest mb-4 font-sans">{{ msg.thinkLabel }}</p>
         <transition name="fade" mode="out-in">
@@ -84,10 +84,10 @@ onUnmounted(() => {
 
 /* 移动端上移，桌面端居中 */
 .circle-center {
-  top: 44%;
+  top: 38%;
 }
 .quote-pos {
-  top: calc(44% + 230px);
+  top: calc(38% + 190px);
 }
 @media (min-width: 768px) {
   .circle-center {
