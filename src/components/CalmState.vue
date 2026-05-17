@@ -44,7 +44,7 @@ const copied = ref(false)
 const copyTextarea = ref(null)
 
 const copyContent = computed(() => {
-  return `【TraderCalm 冷静金句】\n${quote.value.text}\n\n——来自 TraderCalm 交易员情绪急救包`
+  return `【TraderCalm 冷静金句】\n${quote.value.text}\n\n——来自 TraderCalm 交易员情绪急救包\nhttps://tradercalm.vercel.app/`
 })
 
 function copyQuote() {
