@@ -1,21 +1,21 @@
 <template>
-  <div class="fixed inset-0 z-50 flex flex-col items-center bg-gray-950 select-none overflow-hidden">
+  <div class="fixed inset-0 z-50 flex flex-col items-center justify-between bg-gray-950 select-none overflow-hidden py-12 md:py-16">
     <!-- 顶部：倒计时 -->
-    <div class="pt-16 md:pt-20 text-center">
+    <div class="text-center">
       <div class="text-7xl md:text-8xl font-bold text-red-500 tabular-nums leading-none mb-2">
         {{ seconds }}
       </div>
-      <p class="text-gray-600 text-xs tracking-widest">SECONDS</p>
+      <p class="text-gray-500 text-xs tracking-widest">SECONDS</p>
     </div>
 
     <!-- 中部：呼吸圆 -->
-    <div class="flex-1 flex items-center justify-center -mt-8">
+    <div class="flex items-center justify-center">
       <div class="animate-breathe w-48 h-48 md:w-64 md:h-64 rounded-full bg-red-600/10"></div>
     </div>
 
     <!-- 下部：毒鸡汤 -->
-    <div class="pb-20 md:pb-28 px-6 max-w-lg mx-auto text-center">
-      <p class="text-gray-400 text-xs tracking-widest mb-4">— 冷静想想 —</p>
+    <div class="px-6 max-w-lg mx-auto text-center">
+      <p class="text-gray-500 text-xs tracking-widest mb-4">— 冷静想想 —</p>
       <transition name="fade" mode="out-in">
         <p
           :key="currentQuote.text"
