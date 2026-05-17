@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+  <div class="flex flex-col items-center justify-center min-h-screen px-4 text-center bg-black">
     <p class="text-gray-500 text-sm mb-4 tracking-widest uppercase">TraderCalm</p>
     <h1 class="text-2xl md:text-3xl font-light text-gray-300 mb-12 leading-relaxed">
       你还好吗？<br />

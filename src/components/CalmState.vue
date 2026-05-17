@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center min-h-screen px-4 text-center">
+  <div class="flex flex-col items-center justify-center min-h-screen px-4 text-center bg-black">
     <div class="mb-8 w-16 h-16 rounded-full bg-emerald-600/20 flex items-center justify-center">
       <span class="text-3xl">🧘</span>
     </div>
