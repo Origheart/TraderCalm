@@ -1,29 +1,29 @@
 <template>
-  <div class="fixed inset-0 z-50 flex flex-col items-center justify-between bg-gray-950 select-none overflow-hidden py-12 md:py-16">
-    <!-- 顶部：倒计时 -->
-    <div class="text-center">
-      <div class="text-7xl md:text-8xl font-bold text-red-500 tabular-nums leading-none mb-2">
-        {{ seconds }}
+  <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gray-950 select-none overflow-hidden">
+    <!-- 呼吸圆背景 -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div class="animate-breathe w-64 h-64 md:w-96 md:h-96 rounded-full bg-red-600/10"></div>
+    </div>
+
+    <!-- 内容区：倒计时 + 毒鸡汤 -->
+    <div class="relative z-10 flex flex-col items-center gap-6 md:gap-8 px-6">
+      <div class="text-center">
+        <div class="text-8xl md:text-9xl font-bold text-red-500 tabular-nums leading-none">
+          {{ seconds }}
+        </div>
       </div>
-      <p class="text-gray-500 text-xs tracking-widest">SECONDS</p>
-    </div>
 
-    <!-- 中部：呼吸圆 -->
-    <div class="flex items-center justify-center">
-      <div class="animate-breathe w-48 h-48 md:w-64 md:h-64 rounded-full bg-red-600/10"></div>
-    </div>
-
-    <!-- 下部：毒鸡汤 -->
-    <div class="px-6 max-w-lg mx-auto text-center">
-      <p class="text-gray-500 text-xs tracking-widest mb-4">— 冷静想想 —</p>
-      <transition name="fade" mode="out-in">
-        <p
-          :key="currentQuote.text"
-          class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
-        >
-          {{ currentQuote.text }}
-        </p>
-      </transition>
+      <div class="max-w-md text-center">
+        <p class="text-gray-500 text-xs tracking-widest mb-3">— 冷静想想 —</p>
+        <transition name="fade" mode="out-in">
+          <p
+            :key="currentQuote.text"
+            class="text-xl md:text-2xl font-bold text-red-300/90 leading-relaxed animate-fade-in"
+          >
+            {{ currentQuote.text }}
+          </p>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
